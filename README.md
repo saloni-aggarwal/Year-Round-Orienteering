@@ -1,4 +1,4 @@
-In this lab, I have build a map which have optimal path for orienteering during different seasons. Considering the elevation contours and speeds on different
+In this project, I have build a map which have optimal path for orienteering during different seasons. Considering the elevation contours and speeds on different
 terrains, I have build the map using A* algorithm.
 
 - main function - Initially, I have processed every input file i.e. elevation file,
