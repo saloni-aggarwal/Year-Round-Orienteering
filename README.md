@@ -1,81 +1,25 @@
-In this project, I have build a map which have optimal path for orienteering during different seasons. Considering the elevation contours and speeds on different
-terrains, I have build the map using A* algorithm.
+In this project, I have build a map which have optimal path for orienteering during different seasons using A* algorithm. Considering the elevation contours and speeds on different terrains.
 
-- main function - Initially, I have processed every input file i.e. elevation file,
-path file and stored into respective data structures. Also, terrain image file
-is saved into data structure where terrain of each pixel is saved. Then a
-terrainMap is created that creates node for each pixel and information of
-each pixel such as its x and y axis, terrain, elevation, speed = speed based on
-the type of terrain , distance = distance from start node to this pixel and
-total cost is saved.
+- main function - Initially, I have processed every input file i.e. elevation file, path file and stored into respective data structures. Also, terrain image file
+is saved into data structure where terrain of each pixel is saved. Then a terrainMap is created that creates node for each pixel and information of each pixel such as its x and y axis, terrain, elevation, speed = speed based on the type of terrain , distance = distance from start node to this pixel and total cost is saved.
 
 
 For every two points in the path file considered as source and destination
 respectively, I execute A* algorithm -
 
-- aStar (A*) - In this function first I am checking if the source and destination
-nodes are not in out of bound regions i.e. terrains (like water, Impassible
-Vegetation and Out of Bounds) whose speed is less than 0. If yes, then
-return null. There are two arraylist 'frontier' and 'explored' which save
-nodes to be explored and nodes that have been explored already
-respectively. Initially source node is added in frontier and cost of source
-node is 0. Also the parents of source and destination nodes are assigned as
-null. Now, the while loop is run until there are elements in frontier list :
-  - From the frontier list find a node that have the lowest cost using
-getLowestCostNode (discussed ahead) and assign that node as the current node
-which is to be explored now. If the current node is the destination (goal) node
-then backtrack (discussed ahead) this node to find a path. Else remove current
-node from the frontier list and add in explored list. This means that this node has
-been explored. Now, I am finding all the neighbours (discussed ahead) of the
-current node. For every neighbour node, I am checking if this node exists in the
-explored list. If it is the continue to the next neighbour node. Else, check if the
-neighbour exists in the frontier node. If it does not exist, then find the speed using
-totalSpeed function (discussed ahead), calculate the total cost i.e. f(n) using
-totalPathCost function (discussed further), calculate total distance using
-calculateDistance function (discussed further). Now I am adding this node in
-frontier list. If the element already exists in frontier than I am checking if the cost
-calculated for the node right now if less than the cost that the code already had. If
-the current cost is less than cost of node = current cost. Also the parent node of
-this neighbour is changed to current node. If the optimal path is found then it is
-returned, else return null.
-- getLowestCostNode - This function finds the node that have lowest cost
-from the frontier Arraylist. This function take frontier list as parameter. All
-elements of frontier are copied into a Queue(aQueue), a new
-node(lowCostNode) is made with value as null initially, and a
-variable(lowCost) keep tracks of the lowest cost found till now with initial
-value as infinite. Running while loop till the queue is empty - check if the
-node popped from queue has low cost than the cost present in lowCost
-variable. If yes, then the lowCost = cost of the popped node and
-lowCostNode = node popped. This function returns the node with lowest
-cost.
-- backtracking - This function backtracks the goal node that is found to trace
-and store the path. The goal node is passed as parameter in this function
-and until the current.parent is not null I keep on adding the x and y values
-of the current node in an Arraylist. After adding the value current node is
-equal to current.parent. This function returns the path that we have traced
-- getNeighbours - This function finds all the neighbours of the node that is
-provided as a parameter. In this function, I am first storing values of x axis
-and y axis in two variables. An Arraylist(neighbours) is made to store all the
-neighbours generated. Considering the location of the x and y axis the
-neighbouring nodes are generated. That is if (x,y) lies in any of the four
-corners then only 3 neighbours are generated based on which corner, if
-(x,y) lies on the border of the image then 5 neighbours are generated based
-on which border, else if (x,y) lies somewhere in the middle then 8
-neighbours are generated based on their position.
-- totalPathCost - This function calculates the total cost i.e. f(n) basen on
-which the node with lowest value will be selected to explore. This function
-returns the heuristic value of each node.
-- calculateHeuristic - This function calculates the heuristic value i.e. h(n) for
-each pixel or node. In this function I am calculating the distance from the
-source node (which is one of neighbour) to the destination node (final node
-till which we want to find path). This is done by using euclidean distance
-and elevation i.e. the distance is Square root (Square of (source.x -
-destination.x) + Square of (source.y - destination.y) + Square of
-(source.elevation - destination.elevation)). Further I am dividing the
-distance obtained with the speed of source node + speed of source node
-parent + speed of destination node. In this heuristic I have considered
-elevation points, speed and distance of source node and destination node
-and hence the value obtained will be very efficient to determine the lowest
+- aStar (A*) - In this function first I am checking if the source and destination nodes are not in out of bound regions i.e. terrains (like water, Impassible
+Vegetation and Out of Bounds) whose speed is less than 0. If yes, then return null. There are two arraylist 'frontier' and 'explored' which save nodes to be explored and nodes that have been explored already respectively. Initially source node is added in frontier and cost of source node is 0. Also the parents of source and destination nodes are assigned as null. Now, the while loop is run until there are elements in frontier list :
+  - From the frontier list find a node that have the lowest cost using getLowestCostNode (discussed ahead) and assign that node as the current node which is to be explored now. If the current node is the destination (goal) node then backtrack (discussed ahead) this node to find a path. Else remove current node from the frontier list and add in explored list. This means that this node has been explored. Now, I am finding all the neighbours (discussed ahead) of the current node. For every neighbour node, I am checking if this node exists in the explored list. If it is the continue to the next neighbour node. Else, check if the neighbour exists in the frontier node. If it does not exist, then find the speed using totalSpeed function (discussed ahead), calculate the total cost i.e. f(n) using
+totalPathCost function (discussed further), calculate total distance using calculateDistance function (discussed further). Now I am adding this node in
+frontier list. If the element already exists in frontier than I am checking if the cost calculated for the node right now if less than the cost that the code already had. If the current cost is less than cost of node = current cost. Also the parent node of this neighbour is changed to current node. If the optimal path is found then it is returned, else return null.
+- getLowestCostNode - This function finds the node that have lowest cost from the frontier Arraylist. This function take frontier list as parameter. All elements of frontier are copied into a Queue(aQueue), a new node(lowCostNode) is made with value as null initially, and a variable(lowCost) keep tracks of the lowest cost found till now with initial value as infinite. Running while loop till the queue is empty - check if the node popped from queue has low cost than the cost present in lowCost variable. If yes, then the lowCost = cost of the popped node and lowCostNode = node popped. This function returns the node with lowest cost.
+- backtracking - This function backtracks the goal node that is found to trace and store the path. The goal node is passed as parameter sriin this function and until the current.parent is not null I keep on adding the x and y values of the current node in an Arraylist. After adding the value current node is equal to current.parent. This function returns the path that we have traced
+- getNeighbours - This function finds all the neighbours of the node that is provided as a parameter. In this function, I am first storing values of x axis
+and y axis in two variables. An Arraylist(neighbours) is made to store all the neighbours generated. Considering the location of the x and y axis the neighbouring nodes are generated. That is if (x,y) lies in any of the four corners then only 3 neighbours are generated based on which corner, if (x,y) lies on the border of the image then 5 neighbours are generated based on which border, else if (x,y) lies somewhere in the middle then 8 neighbours are generated based on their position.
+- totalPathCost - This function calculates the total cost i.e. f(n) basen on which the node with lowest value will be selected to explore. This function returns the heuristic value of each node.
+- calculateHeuristic - This function calculates the heuristic value i.e. h(n) for each pixel or node. In this function I am calculating the distance from the
+source node (which is one of neighbour) to the destination node (final node till which we want to find path). This is done by using euclidean distance
+and elevation i.e. the distance is Square root (Square of (source.x - destination.x) + Square of (source.y - destination.y) + Square of (source.elevation - destination.elevation)). Further I am dividing the distance obtained with the speed of source node + speed of source node parent + speed of destination node. In this heuristic I have considered elevation points, speed and distance of source node and destination node and hence the value obtained will be very efficient to determine the lowest 
 cost node. Further this value obtained roughly calculates the average time
 which will be always less than the actual distance from the source and
 destination considering the elevation and speed on each type of terrain.
