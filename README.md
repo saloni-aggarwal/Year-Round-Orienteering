@@ -19,55 +19,14 @@ and y axis in two variables. An Arraylist(neighbours) is made to store all the n
 - totalPathCost - This function calculates the total cost i.e. f(n) basen on which the node with lowest value will be selected to explore. This function returns the heuristic value of each node.
 - calculateHeuristic - This function calculates the heuristic value i.e. h(n) for each pixel or node. In this function I am calculating the distance from the
 source node (which is one of neighbour) to the destination node (final node till which we want to find path). This is done by using euclidean distance
-and elevation i.e. the distance is Square root (Square of (source.x - destination.x) + Square of (source.y - destination.y) + Square of (source.elevation - destination.elevation)). Further I am dividing the distance obtained with the speed of source node + speed of source node parent + speed of destination node. In this heuristic I have considered elevation points, speed and distance of source node and destination node and hence the value obtained will be very efficient to determine the lowest 
-cost node. Further this value obtained roughly calculates the average time
-which will be always less than the actual distance from the source and
-destination considering the elevation and speed on each type of terrain.
-Thus, this heuristic provides an efficient value to find optimal path using A*.
-- calculateDistance - This function calculates the actual distance from a
-source node (i.e. current node that is being explored) to destination node
-(i.e. neighbour of source node). The distance from one pixel to another is - If
-x axis of both nodes is same then longitude value is considered i.e. 10.29; If
-y axis of both nodes is same then latitude value is considered i.e. 7.55; Else,
-Square root of (Square of 10.29 + Square of 7.55) is considered. Now, the
-total distance is the distance from one pixel to another + distance of source
-node's parent. This distance is efficient to find the total path covered from
-the starting pixel to this pixel as this value considers the distance of its
-parent node as well.
-- drawImage - This image draws the path obtained. From the main function I
-have called this function for every path that is obtained. Path is given as the
-parameter for this function. I have used java ImageIO class and Java Color
-class to draw the image. The terrain image file in opened and read using
-ImageIO.read function and is stored in BufferedImage object. For every
-pixel that is part of the path is coloured as red. So these pixel's RGB value is
-updated in temp array as 255/0/0 (RBG value of red colour). Now the RGB
-value of every pixel in temp array is stored in red, green and blue variables
-respectively. Using the setRGB function the pixel value is updated in the
-image. Now the output file is opened and the updated image is
-saved/written to this output file using ImageIO.write function.
+and elevation i.e. the distance is Square root (Square of (source.x - destination.x) + Square of (source.y - destination.y) + Square of (source.elevation - destination.elevation)). Further I am dividing the distance obtained with the speed of source node + speed of source node parent + speed of destination node. In this heuristic I have considered elevation points, speed and distance of source node and destination node and hence the value obtained will be very efficient to determine the lowest cost node. Further this value obtained roughly calculates the average time which will be always less than the actual distance from the source and destination considering the elevation and speed on each type of terrain. Thus, this heuristic provides an efficient value to find optimal path using A*.
+- calculateDistance - This function calculates the actual distance from a source node (i.e. current node that is being explored) to destination node (i.e. neighbour of source node). The distance from one pixel to another is - If x axis of both nodes is same then longitude value is considered i.e. 10.29; If y axis of both nodes is same then latitude value is considered i.e. 7.55; Else, Square root of (Square of 10.29 + Square of 7.55) is considered. Now, the total distance is the distance from one pixel to another + distance of source node's parent. This distance is efficient to find the total path covered from the starting pixel to this pixel as this value considers the distance of its parent node as well.
+- drawImage - This image draws the path obtained. From the main function I have called this function for every path that is obtained. Path is given as the parameter for this function. I have used java ImageIO class and Java Color class to draw the image. The terrain image file in opened and read using ImageIO.read function and is stored in BufferedImage object. For every pixel that is part of the path is coloured as red. So these pixel's RGB value is updated in temp array as 255/0/0 (RBG value of red colour). Now the RGB value of every pixel in temp array is stored in red, green and blue variables respectively. Using the setRGB function the pixel value is updated in the image. Now the output file is opened and the updated image is saved/written to this output file using ImageIO.write function.
 
 
 For different seasons :
-- Summer - The summer has the same process or same way to find optimal
-path as described above.
-- Fall - In the fall season as the leaves fall from tree so the speed of the easy
-movement forest reduces and this change has been made in the main
-function where the speed is 9.5 in fall; otherwise 11.
-- Winter - In the winter season 7 pixels from the water pixel is considered as
-snow area. So the speed of the snow is considered in this season which is
-assigned in the main function. The path is obtained in the same way as it is
-found in summer season. But for drawing image for this season I have wrote
-a function called winterImage. In winterImage function I have declared a
-boolean variable which determines if there is land pixel beside water pixel.
-For every pixel determine if that pixel is water pixel. If it is water pixel, then
-I am finding if there is any neighbouring land pixel then isLand is true. For 7
-consecutive neighbouring pixels - if the neighbouring pixel is a land pixel
-then change the colour of the pixel to the snow colour. So the RGB value of
-the pixel is updates in both pixels and temp array.
-- Spring - In spring season any pixel within 15 pixels of water 15 is called as a
-mud water. Also any pixel from these 15 pixel has elevation less than 1 then
-it is considered as under water. In springImage function I have used the
-same concept as that in the winterImage function but in this the additional
-property is that if the elevation of current neighbouring pixel - elevation of
-the water pixel is less than 1 then it is considered as underwater and hence
-these pixels are coloured as brown.
+- Summer - The summer has the same process or same way to find optimal path as described above.
+- Fall - In the fall season as the leaves fall from tree so the speed of the easy movement forest reduces and this change has been made in the main function where the speed is 9.5 in fall; otherwise 11.
+- Winter - In the winter season 7 pixels from the water pixel is considered as snow area. So the speed of the snow is considered in this season which is assigned in the main function. The path is obtained in the same way as it is found in summer season. But for drawing image for this season I have wrote a function called winterImage. In winterImage function I have declared a boolean variable which determines if there is land pixel beside water pixel. For every pixel determine if that pixel is water pixel. If it is water pixel, then I am finding if there is any neighbouring land pixel then isLand is true. For 7 consecutive neighbouring pixels - if the neighbouring pixel is a land pixel then change the colour of the pixel to the snow colour. So the RGB value of the pixel is updated in both pixels and temp array.
+- Spring - In spring season any pixel within 15 pixels of water 15 is called as a mud water. Also any pixel from these 15 pixel has elevation less than 1 then
+it is considered as under water. In springImage function I have used the same concept as that in the winterImage function but in this the additional property is considered that if the elevation of current neighbouring pixel - elevation of the water pixel is less than 1 then it is considered as underwater and hence these pixels are coloured as brown.
